@@ -31,6 +31,7 @@ namespace WCFDuplex.Database
                 {
                     this.context.Dispose();
                 }
+                disposed = true;
             }
         }
     }
