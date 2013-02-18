@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DuplexChatDB" Class="ChatDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=RONALD-PC;Initial Catalog=DuplexChatDB;Persist Security Info=True;User ID=sa" SettingsObjectName="WCFDuplex.Properties.Settings" SettingsPropertyName="DuplexChatDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_ChatUserLogin" Member="tbl_ChatUserLogins">
+    <Type Name="tbl_ChatUserLogin">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ProfileId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_ChatUserLogin_tbl_ChatUserProfile" Member="tbl_ChatUserProfiles" ThisKey="Id" OtherKey="id" Type="tbl_ChatUserProfile" />
+      <Association Name="tbl_ChatUserLogin_tbl_ChatUserStatus" Member="tbl_ChatUserStatus" ThisKey="Id" OtherKey="UserID" Type="tbl_ChatUserStatus" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ChatUserProfile" Member="tbl_ChatUserProfiles">
+    <Type Name="tbl_ChatUserProfile">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EmailAddess" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tbl_ChatUserLogin_tbl_ChatUserProfile" Member="tbl_ChatUserLogin" ThisKey="id" OtherKey="Id" Type="tbl_ChatUserLogin" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ChatUserStatus" Member="tbl_ChatUserStatus">
+    <Type Name="tbl_ChatUserStatus">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_ChatUserLogin_tbl_ChatUserStatus" Member="tbl_ChatUserLogin" ThisKey="UserID" OtherKey="Id" Type="tbl_ChatUserLogin" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

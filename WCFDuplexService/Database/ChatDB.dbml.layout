@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ChatDB">
+  <DataContextMoniker Name="/ChatDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="e29c3085-77f6-47e5-9a19-f47105ccd6c8" absoluteBounds="0.75, 2.25, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/ChatDBDataContext/tbl_ChatUserLogin" />
+      <nestedChildShapes>
+        <elementListCompartment Id="98155278-e5a2-409b-9cfb-5ea6228e52dc" absoluteBounds="0.765, 2.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="55da1963-152a-469e-adae-0c4c8fc2885b" absoluteBounds="3.5, 1, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/ChatDBDataContext/tbl_ChatUserProfile" />
+      <nestedChildShapes>
+        <elementListCompartment Id="19fc4d20-7459-4017-b88a-5af5b96a89cb" absoluteBounds="3.515, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.51044840494792); (3.5 : 2.51044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ChatDBDataContext/tbl_ChatUserLogin/tbl_ChatUserLogin_tbl_ChatUserProfile" />
+      <nodes>
+        <classShapeMoniker Id="e29c3085-77f6-47e5-9a19-f47105ccd6c8" />
+        <classShapeMoniker Id="55da1963-152a-469e-adae-0c4c8fc2885b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3591b95d-4d8b-4d56-a19d-6556af1fa2eb" absoluteBounds="3.5, 3.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/ChatDBDataContext/tbl_ChatUserStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="51a91fda-c64e-4913-bfb0-26e9e9375676" absoluteBounds="3.515, 3.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 3.76044840494792); (3.5 : 3.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ChatDBDataContext/tbl_ChatUserLogin/tbl_ChatUserLogin_tbl_ChatUserStatus" />
+      <nodes>
+        <classShapeMoniker Id="e29c3085-77f6-47e5-9a19-f47105ccd6c8" />
+        <classShapeMoniker Id="3591b95d-4d8b-4d56-a19d-6556af1fa2eb" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
