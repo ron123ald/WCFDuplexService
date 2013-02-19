@@ -6,8 +6,8 @@ namespace WCFDuplex.Repository
     public abstract class Repository<T> : DBContext<ChatDBDataContext>, IDisposable
     {
 
-        public Repository(ChatDBDataContext dbContext)
-            : base(dbContext)
+        public Repository(ChatDBDataContext context)
+            : base(context)
         {
         }
 
