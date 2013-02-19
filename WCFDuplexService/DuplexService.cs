@@ -63,7 +63,7 @@ namespace WCFDuplex
             }
 
             IUser user = new UserService();
-            user.Login(data);
+            response = user.Login(data);
             /// notify other online users
             Action<string, ChatState> Notify = new Action<string, ChatState>(ServiceUtils.CallBackNotify);
             Notify.Invoke(data.Username, ChatState.ONLINE);
@@ -80,7 +80,7 @@ namespace WCFDuplex
             }
 
             IUser user = new UserService();
-            user.Logout(data);
+            response = user.Logout(data);
             /// notify other online users
             Action<string, ChatState> Notify = new Action<string, ChatState>(ServiceUtils.CallBackNotify);
             Notify.Invoke(data.Username, ChatState.OFFLINE);
