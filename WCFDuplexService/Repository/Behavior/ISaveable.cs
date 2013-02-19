@@ -1,5 +1,5 @@
 ﻿
-namespace WCFDuplex.Repository
+namespace WCFDuplex.Repository.Behavior
 {
     public interface ISaveable
     {

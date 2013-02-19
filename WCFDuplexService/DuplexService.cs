@@ -7,6 +7,7 @@ using WCFDuplex.Contracts;
 using WCFDuplex.DataContracts;
 using WCFDuplex.Exceptions.Faults;
 using WCFDuplex.Services;
+using WCFDuplex.Tools;
 namespace WCFDuplex
 {
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
@@ -31,9 +32,11 @@ namespace WCFDuplex
                 throw new ArgumentNullException("data", "data cannot be null");
 
             IUser user = new UserService();
+            int profileId = 0;
+            int loginId = 0;
             try
             {
-                user.RegisterProfile(data);
+                profileId = user.RegisterProfile(data);
             }
             catch (Exception Ex)
             {
@@ -43,19 +46,46 @@ namespace WCFDuplex
             finally
             {
                 LoginDataContract loginDetail = new LoginDataContract(data.Username, data.Password);
-                user.RegisterLogin(loginDetail, data.EmailAddress);
+                loginId = user.RegisterLogin(loginDetail, profileId);
+
+                user.RegisterStatus(ChatState.INITIAL, loginId);
+
                 OperationContext.Current.GetCallbackChannel<IServiceCallBack>().DoLoginCallBack(loginDetail);
             }
         }
 
         public bool Login(LoginDataContract data)
         {
-            throw new NotImplementedException();
+            bool response = false;
+            if (!callBackCollections.Exists(data.Username))
+            {
+                callBackCollections.Add(data.Username, OperationContext.Current.GetCallbackChannel<IServiceCallBack>());
+            }
+
+            IUser user = new UserService();
+            user.Login(data);
+            /// notify other online users
+            Action<string, ChatState> Notify = new Action<string, ChatState>(ServiceUtils.CallBackNotify);
+            Notify.Invoke(data.Username, ChatState.ONLINE);
+
+            return response;
         }
 
         public bool Logout(LoginDataContract data)
         {
-            throw new NotImplementedException();
+            bool response = false;
+            if (callBackCollections.Exists(data.Username))
+            {
+                callBackCollections.Remove(data.Username);
+            }
+
+            IUser user = new UserService();
+            user.Logout(data);
+            /// notify other online users
+            Action<string, ChatState> Notify = new Action<string, ChatState>(ServiceUtils.CallBackNotify);
+            Notify.Invoke(data.Username, ChatState.OFFLINE);
+
+            return response;
         }
     }
 }

@@ -2,9 +2,10 @@
 using System;
 using System.Linq;
 using WCFDuplex.Database;
+using WCFDuplex.Repository.Behavior;
 namespace WCFDuplex.Repository
 {
-    public class LoginRepository : Repository<tbl_ChatUserLogin>, IInsertable<tbl_ChatUserLogin>, ISaveable
+    public class LoginRepository : Repository<tbl_ChatUserLogin>, ICreateable<tbl_ChatUserLogin>, ISaveable
     {
         public LoginRepository(ChatDBDataContext context)
             : base(context)
@@ -18,7 +19,7 @@ namespace WCFDuplex.Repository
                     select m).SingleOrDefault();
         }
 
-        public void Insert(tbl_ChatUserLogin entity)
+        public void Create(tbl_ChatUserLogin entity)
         {
             Context.tbl_ChatUserLogins.InsertOnSubmit(entity);
         }

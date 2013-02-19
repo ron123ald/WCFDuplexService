@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WCFDuplex.Database;
+using WCFDuplex.Repository.Behavior;
 namespace WCFDuplex.Repository
 {
-    public class ProfileRepository : Repository<tbl_ChatUserProfile>, IGetListable<tbl_ChatUserProfile>, IInsertable<tbl_ChatUserProfile>, ISaveable
+    public class ProfileRepository : Repository<tbl_ChatUserProfile>, IGetListable<tbl_ChatUserProfile>, ICreateable<tbl_ChatUserProfile>, ISaveable
     {
         public ProfileRepository(ChatDBDataContext context)
             : base(context)
@@ -32,7 +33,7 @@ namespace WCFDuplex.Repository
                     select m).ToList();
         }
 
-        public void Insert(tbl_ChatUserProfile entity)
+        public void Create(tbl_ChatUserProfile entity)
         {
             Context.tbl_ChatUserProfiles.InsertOnSubmit(entity);
         }

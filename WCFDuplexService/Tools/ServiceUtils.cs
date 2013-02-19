@@ -1,5 +1,7 @@
 ﻿
 using System.Collections.Generic;
+using System.ServiceModel;
+using WCFDuplex.Collection;
 using WCFDuplex.Database;
 namespace WCFDuplex.Tools
 {
@@ -12,6 +14,14 @@ namespace WCFDuplex.Tools
             switch (typeof(T).Name)
             {
                 case "tbl_ChatUserLogin":
+                    for (int i = 0; i < ((List<tbl_ChatUserLogin>)context).Count; i++)
+                    {
+                        if (((List<tbl_ChatUserLogin>)context)[i].Username.Equals(data, System.StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
                     break;
                 case "tbl_ChatUserProfile":
                     for (int i = 0; i < ((List<tbl_ChatUserProfile>)context).Count; i++)
@@ -28,6 +38,46 @@ namespace WCFDuplex.Tools
             }
 
             return flag;
+        }
+
+        public static void CallBackNotify(string username, ChatState status)
+        {
+            IList<IServiceCallBack> channels = (CallBackChannelCollections.InstanceContext).GetExcept(username);
+            switch (status)
+            {
+                case ChatState.ONLINE:
+                    for (int i = 0; i < channels.Count; i++)
+                    {
+                        try
+                        {
+                            channels[i].DoAddOnlineUser(username);
+                        }
+                        catch 
+                        {
+                        }
+                    }
+                    break;
+                case ChatState.OFFLINE:
+                    for (int i = 0; i < channels.Count; i++)
+                    {
+                        try
+                        {
+                            channels[i].DoRemoveOfflineUser(username);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                    break;
+                case ChatState.CONNECTING:
+                    break;
+                case ChatState.CONNECTED:
+                    break;
+                case ChatState.DISCONNECTED:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

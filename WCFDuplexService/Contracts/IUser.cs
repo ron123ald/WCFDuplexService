@@ -1,15 +1,20 @@
 ﻿
 using WCFDuplex.DataContracts;
+using WCFDuplex.Tools;
 namespace WCFDuplex.Contracts
 {
     public interface IUser
     {
-        void RegisterProfile(RegisterDataContract register);
+        int RegisterProfile(RegisterDataContract register);
 
-        void RegisterLogin(LoginDataContract login, string emailAddress);
+        int RegisterLogin(LoginDataContract login, int profileId);
 
-        void Login(LoginDataContract login);
+        void RegisterStatus(ChatState status, int loginId);
 
-        void Logout(LoginDataContract logout);
+        bool Login(LoginDataContract login);
+
+        bool Logout(LoginDataContract logout);
+
+        bool ChangeUserStatus(ChatState status, int userId);
     }
 }

@@ -4,3 +4,8 @@ D:\Development\_SPIKE\WCFDuplexService\WCFDuplexService\bin\Debug\WCFDuplexServi
 D:\Development\_SPIKE\WCFDuplexService\WCFDuplexService\obj\Debug\WCFDuplexService.dll
 D:\Development\_SPIKE\WCFDuplexService\WCFDuplexService\obj\Debug\WCFDuplexService.pdb
 D:\Development\_SPIKE\WCFDuplexService\WCFDuplexService\obj\Debug\WCFDuplex.csprojResolveAssemblyReference.cache
+D:\Ronald\WCFDuplexService\WCFDuplexService\bin\Debug\WCFDuplexService.dll.config
+D:\Ronald\WCFDuplexService\WCFDuplexService\bin\Debug\WCFDuplexService.dll
+D:\Ronald\WCFDuplexService\WCFDuplexService\bin\Debug\WCFDuplexService.pdb
+D:\Ronald\WCFDuplexService\WCFDuplexService\obj\Debug\WCFDuplexService.dll
+D:\Ronald\WCFDuplexService\WCFDuplexService\obj\Debug\WCFDuplexService.pdb

@@ -64,13 +64,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Database\DBContext.cs" />
-    <Compile Include="Repository\IDeletable.cs" />
-    <Compile Include="Repository\IGetable.cs" />
-    <Compile Include="Repository\IInsertable.cs" />
-    <Compile Include="Repository\ISaveable.cs" />
+    <Compile Include="Repository\Behavior\IRemovable.cs" />
+    <Compile Include="Repository\Behavior\IGetable.cs" />
+    <Compile Include="Repository\Behavior\ICreateable.cs" />
+    <Compile Include="Repository\Behavior\ISaveable.cs" />
     <Compile Include="Repository\ProfileRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
+    <Compile Include="Repository\StatusRepository.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Tools\ChatState.cs" />
     <Compile Include="Tools\ServiceUtils.cs" />

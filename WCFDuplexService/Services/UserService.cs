@@ -14,8 +14,9 @@ namespace WCFDuplex.Services
         {
         }
 
-        public void RegisterProfile(RegisterDataContract registerData)
+        public int RegisterProfile(RegisterDataContract registerData)
         {
+            int profileId = 0;
             using (ProfileRepository profileRepo = new ProfileRepository(new ChatDBDataContext())) 
             {
                 List<tbl_ChatUserProfile> profiles = profileRepo.Get();
@@ -28,26 +29,86 @@ namespace WCFDuplex.Services
                         FullName = registerData.FullName,
                         PhoneNumber = registerData.PhoneNumber
                     };
-                    profileRepo.Insert(profile);
+                    profileRepo.Create(profile);
                     profileRepo.Save();
+
+                    profileId = profileRepo.Get(registerData.EmailAddress).id;
                 }
                 else
                     throw new Exception("Profile Exists");
             }
+            return profileId;
         }
 
-        public void RegisterLogin(LoginDataContract login, string emailAddress)
+        public int RegisterLogin(LoginDataContract loginData, int profileId)
         {
+            int loginId = 0;
+            using (LoginRepository loginRepo = new LoginRepository(new ChatDBDataContext()))
+            {
+                loginRepo.Create(new tbl_ChatUserLogin()
+                {
+                    Username = loginData.Username, Password = loginData.Password, ProfileId = profileId
+                });
+                loginRepo.Save();
+
+                loginId = loginRepo.Get(loginData.Username).Id;
+            }
+            return loginId;
         }
 
-        public void Login(LoginDataContract login)
+        public void RegisterStatus(ChatState status, int loginId)
         {
-            throw new System.NotImplementedException();
+            using (StatusRepository statusRepo = new StatusRepository(new ChatDBDataContext()))
+            {
+                statusRepo.Create(new tbl_ChatUserStatus()
+                {
+                    Status = (int)status, UserID = loginId
+                });
+                statusRepo.Save();
+            }
         }
 
-        public void Logout(LoginDataContract logout)
+        public bool Login(LoginDataContract loginData)
         {
-            throw new System.NotImplementedException();
+            bool flag = false;
+            using (LoginRepository loginRepo = new LoginRepository(new ChatDBDataContext()))
+            {
+                tbl_ChatUserLogin login = loginRepo.Get(loginData.Username);
+                if (login != null)
+                {
+                    flag = ChangeUserStatus(ChatState.ONLINE, login.Id);
+                }
+            }
+            return flag;
+        }
+
+        public bool Logout(LoginDataContract logoutData)
+        {
+            bool flag = false;
+            using (LoginRepository loginRepo = new LoginRepository(new ChatDBDataContext()))
+            {
+                tbl_ChatUserLogin login = loginRepo.Get(logoutData.Username);
+                if (login != null)
+                {
+                    flag = ChangeUserStatus(ChatState.OFFLINE, login.Id);
+                }
+            }
+            return flag;
+        }
+
+        public bool ChangeUserStatus(ChatState status, int userId)
+        {
+            bool flag = false;
+            using (StatusRepository statusRepo = new StatusRepository(new ChatDBDataContext()))
+            {
+                tbl_ChatUserStatus statusRec = statusRepo.Get(userId.ToString());
+                statusRec.Status = (int)status;
+                statusRepo.Save();
+
+                if (statusRepo.Get(userId.ToString()).Status.Equals((int)status))
+                    flag = true;
+            }
+            return flag;
         }
     }
 }

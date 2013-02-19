@@ -28,5 +28,11 @@ namespace WCFDuplex
     {
         [OperationContract]
         void DoLoginCallBack(LoginDataContract data);
+
+        [OperationContract]
+        void DoAddOnlineUser(string username);
+
+        [OperationContract]
+        void DoRemoveOfflineUser(string username);
     }
 }
